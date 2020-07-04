@@ -1,0 +1,250 @@
+/*
+Software Engineering Medical Clinic Project
+Assingment #2: GUI Phase #1 and Front-End Development
+Goal is to implement two most essential system functions.
+
+June 26, 2020
+
+Alpha Team:
+Jamil Bakhtyar
+Srikar Balmuri
+Victor Barron
+Emma Bourne
+Sunny Patel
+
+*/
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
+
+class gui{
+   public static void main(String args[]) {
+   
+      //Login Page JFrame set-up:
+      JFrame loginPage = new JFrame("Login Page");
+      loginPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      loginPage.setSize(625, 125);
+   
+      //Login Page menu bar set-up:
+      JMenuBar mbLoginPage = new JMenuBar();
+      
+      JMenu maintenance = new JMenu("Maintenance");
+      JMenu help = new JMenu("Help");
+      
+      mbLoginPage.add(maintenance);
+      mbLoginPage.add(help);
+      
+      JMenuItem errorReported = new JMenuItem("Report System Error");
+      JMenuItem setupSystem = new JMenuItem("System Setup");
+      
+      maintenance.add(errorReported);
+      help.add(setupSystem);
+   
+      //Login Page panel set-up:
+      JPanel loginPanel1 = new JPanel();
+      JPanel loginPanel2 = new JPanel();
+      JPanel loginPanel3 = new JPanel();
+      
+      JLabel username = new JLabel("Username:");
+      JTextField tfUsername = new JTextField(20); // Accepts up to 20 characters:
+      JLabel password = new JLabel("Password:");
+      JTextField tfPassword = new JTextField(20);
+      
+      JButton login = new JButton("Login");
+      loginPanel1.add(username);
+      loginPanel1.add(tfUsername);
+      loginPanel2.add(password); 
+      loginPanel2.add(tfPassword);
+      loginPanel3.add(login);
+   
+      //Possible implementation of text area in later versions:
+      //JTextArea ta = new JTextArea();
+   
+      //Adding Login Page components set-up:
+      loginPage.getContentPane().add(BorderLayout.WEST, loginPanel1);
+      loginPage.getContentPane().add(BorderLayout.EAST, loginPanel2);
+      loginPage.getContentPane().add(BorderLayout.PAGE_END, loginPanel3);
+      loginPage.getContentPane().add(BorderLayout.PAGE_START, mbLoginPage);
+      //frame.getContentPane().add(BorderLayout.CENTER, ta);
+      loginPage.setVisible(true);
+         
+      //Doctor Page JFrame set-up:
+      JFrame doctorPage = new JFrame("Doctor Home Page");
+      doctorPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      doctorPage.setSize(400, 100);
+   
+      //Doctor Page menu bar set-up:
+      JMenu insert =  new JMenu("       Insert      ");
+      JMenu update =  new JMenu("       Update      ");
+      JMenu delete =  new JMenu("       Delete      ");
+      JMenu reports = new JMenu(" Generate  Reports ");
+      JMenu logout = new JMenu("Logout");
+      
+      JMenuBar mbDoctorPage1 = new JMenuBar();
+      mbDoctorPage1.add(insert);
+      mbDoctorPage1.add(update);
+      mbDoctorPage1.add(delete);
+      mbDoctorPage1.add(reports);
+      
+      JMenuBar mbDoctorPage2 = new JMenuBar();
+      mbDoctorPage2.add(logout);
+      mbDoctorPage2.add(help);
+      
+      //Doctor Page components set-up:
+      doctorPage.getContentPane().add(BorderLayout.CENTER, mbDoctorPage1);
+      doctorPage.getContentPane().add(BorderLayout.NORTH, mbDoctorPage2);
+      
+      //Support Page JFrame set-up:
+      JFrame supportPage = new JFrame("Support Staff Home Page");
+      supportPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      supportPage.setSize(400, 100);
+   
+      //Support Page menu bar set-up:
+      JMenuBar mbSupportPage1 = new JMenuBar();
+      mbSupportPage1.add(insert);
+      mbSupportPage1.add(update);
+      mbSupportPage1.add(delete);
+      mbSupportPage1.add(reports);
+      
+      JMenuBar mbSupportPage2 = new JMenuBar();
+      mbSupportPage2.add(logout);
+      mbSupportPage2.add(help);
+      
+      //Adding Support Page components set-up:
+      supportPage.getContentPane().add(BorderLayout.CENTER, mbSupportPage1);
+      supportPage.getContentPane().add(BorderLayout.NORTH, mbSupportPage2);
+      
+      //Admin Page JFrame set-up:
+      JFrame adminPage = new JFrame("Admin Home Page");
+      adminPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      adminPage.setSize(300, 100);
+   
+      //Admin Page menu bar set-up:
+      JMenu editUser =  new JMenu("Edit Staff Accounts");
+      JMenu questions = new JMenu("   Questionnaires   ");
+      
+      JMenuBar mbAdminPage1 = new JMenuBar();
+      mbAdminPage1.add(editUser);
+      mbAdminPage1.add(questions);
+      
+      JMenuBar mbAdminPage2 = new JMenuBar();
+      //mbAdminPage2.add(logout);
+      //mbAdminPage2.add(help);
+      
+      //Adding Admin Page components set-up:
+      adminPage.getContentPane().add(BorderLayout.CENTER, mbAdminPage1);
+      adminPage.getContentPane().add(BorderLayout.NORTH, mbAdminPage2);
+      
+      //Error Reported Function on Login Page: to be further implemeted later in the programming process.
+      errorReported.addActionListener(
+         new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               //System.out.println('x');
+            }});
+            
+      //System Setup Function on Login Page: To be further implemeted later in the programming process.
+      //Possibly for companies who purchase the software for the first time and need a location to set up admin accounts:
+      setupSystem.addActionListener(
+         new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               //System.out.println('x');
+            }}); 
+            
+      //Login Button listener: to be further integrated with the database login and username combinations:
+      //Temporarily used for test cases of "doctor," "admin," and "support" or supporting staff:
+      login.addActionListener(
+         new ActionListener() {
+            public void actionPerformed(ActionEvent e) { 
+               //System.out.println('x');
+               if (tfUsername.getText().equals("doctor") && tfPassword.getText().equals("doctor"))
+                  doctorPage.setVisible(true);
+               if (tfUsername.getText().equals("support") && tfPassword.getText().equals("support"))
+                  supportPage.setVisible(true);
+               if (tfUsername.getText().equals("admin") && tfPassword.getText().equals("admin"))
+                  adminPage.setVisible(true);    
+            }});
+               
+      //Insert Button listener: to be further integrated with the database login and username combinations:
+      insert.addActionListener(
+         new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               //System.out.println('x');
+            }}); 
+            
+      //Delete Button listener: to be further integrated with the database login and username combinations:
+      delete.addActionListener(
+         new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               //System.out.println('x');
+            }}); 
+      
+      //Reports Button listener: to be further integrated with the database login and username combinations:
+      reports.addActionListener(
+         new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               //System.out.println('x');
+            }}); 
+   
+      //Update Button listener: to be further integrated with the database login and username combinations:            
+      update.addActionListener(
+         new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               //System.out.println('x');
+            }}); 
+   
+       //Questions Button listener: to be further integrated with the database login and username combinations:           
+      questions.addActionListener(
+         new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               //System.out.println('x');
+            }}); 
+            
+      //Edit User Button listener: to be further integrated with the database login and username combinations:
+      editUser.addActionListener(
+         new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               //Includes create user:
+               /* private String [] initListingsTable() {
+            // Executable SQL commands for creating Listings table 
+            // inserting initial names and phone numbers.
+            String[]  SQL = {
+            "create table Listings (" +
+            "USER_NAME  varchar (16)," +
+            "PASSWORD   varchar (16),"
+            "insert into Listings values (tf1.getText(), tf2.getText())
+            };
+            return SQL;
+            */
+               //System.out.println('x');
+            }}); 
+            
+      //Logout Button listener: to be further integrated with the database login and username combinations:
+      logout.addActionListener(
+         new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               //System.out.println('x');
+            }}); 
+      
+      //Database management used for backing up the system and allowing doctors some off-site access to information:
+       /*public DatabaseManager (String username, String password) {
+            try {
+            Class.forName ("com.mysql..."); //Look up driver
+        }
+        catch (ClassNotFoundException e) {
+            System.out.println("Failed to load driver.");
+            e.printStackTrace();
+            return;
+        }
+                    
+        try {                   
+            // Connect to the database.
+            // Give the whole URL as a parameter rather than using a variable
+            conn = DriverManager.getConnection("http://the.url.goes.here" + username, username, password);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }*/
+   }
+}
